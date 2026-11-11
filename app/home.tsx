@@ -33,7 +33,7 @@ export default function HomeScreen() {
             </View>
 
             <Text style={homeStyles.greetingTitle}>
-              Halo, Selamat Datang!
+              Halo, Selamat Datang di Aplikasi Saya!
             </Text>
 
             <Text style={homeStyles.greetingEmail}>
