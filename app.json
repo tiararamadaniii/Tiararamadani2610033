@@ -2,6 +2,7 @@
   "name": "Tiararamadani2610033",
   "slug": "tiararamadani2610033",
   "plugins": [
-    "expo-router"
+    "expo-router",
+    "expo-secure-store"
   ]
 }
