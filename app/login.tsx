@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { router, Link } from "expo-router";
+import { router } from "expo-router";
 import { authStyles } from "../styles/authStyles";
 import { api } from "../services/api";
 import { saveToken } from "../services/authStorage";
@@ -69,7 +69,7 @@ export default function LoginScreen() {
       // Simpan token autentikasi
       await saveToken(data.access_token);
 
-      // Pindah ke halaman Home tanpa mengirim token melalui URL
+      // Pindah ke Home menggunakan router.replace()
       router.replace({
         pathname: "/home",
         params: {
@@ -255,11 +255,13 @@ export default function LoginScreen() {
                 Belum punya akun?
               </Text>
 
-              <Link href="/register" asChild>
+              <TouchableOpacity
+                onPress={() => router.push("/register")}
+              >
                 <Text style={authStyles.footerLink}>
                   Daftar Sekarang
                 </Text>
-              </Link>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>

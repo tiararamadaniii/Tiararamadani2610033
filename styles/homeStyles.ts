@@ -6,12 +6,12 @@ export const homeStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F8FAFC",
   },
-  container: {
+  scrollContainer: {
     flex: 1,
-    padding: 20,
-    justifyContent: "space-between",
+    backgroundColor: "#F8FAFC",
   },
-  contentArea: {
+  scrollContent: {
+    padding: 20,
     gap: 16,
   },
   welcomeCard: {
@@ -35,7 +35,7 @@ export const homeStyles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 999,
-    marginBottom: 12,
+    marginBottom: 10,
   },
   statusBadgeText: {
     fontSize: 11.5,
@@ -43,7 +43,7 @@ export const homeStyles = StyleSheet.create({
     color: "#059669",
   },
   greetingTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "800",
     color: "#0F172A",
   },
@@ -51,47 +51,76 @@ export const homeStyles = StyleSheet.create({
     fontSize: 13.5,
     color: "#2563EB",
     fontWeight: "600",
-    marginTop: 4,
+    marginTop: 2,
   },
-  greetingDesc: {
-    fontSize: 13,
-    color: "#64748B",
-    lineHeight: 19,
-    marginTop: 10,
-  },
-  infoCard: {
-    backgroundColor: "#EFF6FF",
-    borderRadius: 16,
-    padding: 16,
+  menuCard: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 18,
+    padding: 18,
     borderWidth: 1,
-    borderColor: "#DBEAFE",
+    borderColor: "#E2E8F0",
+    shadowColor: "#0F172A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 12,
+    elevation: 2,
   },
-  infoTitle: {
-    fontSize: 13.5,
-    fontWeight: "700",
-    color: "#1E40AF",
-    marginBottom: 6,
+  menuHeader: {
+    marginBottom: 16,
   },
-  infoItem: {
-    fontSize: 12.5,
-    color: "#334155",
-    lineHeight: 20,
+  menuSectionTitle: {
+    fontSize: 15,
+    fontWeight: "800",
+    color: "#0F172A",
   },
-  logoutButton: {
+  menuSectionSubtitle: {
+    fontSize: 12,
+    color: "#64748B",
+    marginTop: 2,
+  },
+  menuGrid: {
     flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    rowGap: 18,
+  },
+  menuItem: {
+    width: "30%",
+    alignItems: "center",
+  },
+  menuIconWrapper: {
+    width: 56,
+    height: 56,
+    borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
-    gap: 8,
-    backgroundColor: "#FEF2F2",
     borderWidth: 1,
-    borderColor: "#FECACA",
-    borderRadius: 14,
-    height: 50,
-    marginBottom: 8,
   },
-  logoutButtonText: {
-    fontSize: 14,
+  menuLabel: {
+    fontSize: 11.5,
     fontWeight: "700",
-    color: "#DC2626",
+    color: "#1E293B",
+    textAlign: "center",
+    marginTop: 6,
+  },
+  iconBgBlue: {
+    backgroundColor: "#EFF6FF",
+    borderColor: "#DBEAFE",
+  },
+  iconBgGreen: {
+    backgroundColor: "#ECFDF5",
+    borderColor: "#D1FAE5",
+  },
+  iconBgAmber: {
+    backgroundColor: "#FFFBEB",
+    borderColor: "#FEF3C7",
+  },
+  iconBgTeal: {
+    backgroundColor: "#F0FDFA",
+    borderColor: "#CCFBF1",
+  },
+  iconBgRose: {
+    backgroundColor: "#FFF1F2",
+    borderColor: "#FFE4E6",
   },
 });

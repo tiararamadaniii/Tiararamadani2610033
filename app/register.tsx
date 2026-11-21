@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -36,24 +37,34 @@ export default function RegisterScreen() {
     setErrorMessage("");
     setSuccessMessage("");
 
+    // Validasi 1: Semua kolom wajib diisi
     if (
       !nama.trim() ||
       !email.trim() ||
       !password.trim() ||
       !confirmPassword.trim()
     ) {
-      setErrorMessage("Semua kolom formulir wajib diisi.");
+      Alert.alert(
+        "Pendaftaran Gagal",
+        "Semua kolom formulir wajib diisi."
+      );
       return;
     }
 
+    // Validasi 2: Password minimal 6 karakter
     if (password.length < 6) {
-      setErrorMessage("Kata sandi minimal terdiri dari 6 karakter.");
+      Alert.alert(
+        "Kata Sandi Lemah",
+        "Kata sandi minimal terdiri dari 6 karakter."
+      );
       return;
     }
 
+    // Validasi 3: Konfirmasi password harus sama
     if (password !== confirmPassword) {
-      setErrorMessage(
-        "Konfirmasi kata sandi tidak sama dengan kata sandi."
+      Alert.alert(
+        "Tidak Cocok",
+        "Konfirmasi kata sandi tidak sama."
       );
       return;
     }
@@ -61,6 +72,7 @@ export default function RegisterScreen() {
     try {
       setIsLoading(true);
 
+      // Mengirim data registrasi ke Laravel API
       const response = await fetch(api.register, {
         method: "POST",
         headers: {
@@ -86,23 +98,21 @@ export default function RegisterScreen() {
         return;
       }
 
+      // Pesan ketika registrasi berhasil
       setSuccessMessage(
         `Pendaftaran berhasil! Akun atas nama ${nama.trim()} berhasil dibuat. Silakan masuk melalui halaman Login.`
       );
 
       setPassword("");
       setConfirmPassword("");
-    } catch (error) {
+
+    } catch {
       setErrorMessage(
         "Tidak dapat terhubung ke server. Periksa koneksi jaringan Anda."
       );
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleBackToLogin = () => {
-    router.replace("/login");
   };
 
   return (
@@ -116,11 +126,11 @@ export default function RegisterScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* Tombol Kembali */}
+          {/* Tombol Kembali Kustom */}
           <TouchableOpacity
             style={authStyles.topBackButton}
             activeOpacity={0.6}
-            onPress={handleBackToLogin}
+            onPress={() => router.back()}
           >
             <Ionicons
               name="arrow-back"
@@ -343,7 +353,7 @@ export default function RegisterScreen() {
               </View>
             </View>
 
-            {/* Pesan Validasi */}
+            {/* Pesan Validasi dari Laravel */}
             {errorMessage !== "" && (
               <Text
                 style={{
@@ -377,7 +387,7 @@ export default function RegisterScreen() {
                     { marginTop: 12 },
                   ]}
                   activeOpacity={0.85}
-                  onPress={handleBackToLogin}
+                  onPress={() => router.back()}
                 >
                   <Text style={authStyles.primaryButtonText}>
                     Ke Halaman Login
@@ -414,7 +424,10 @@ export default function RegisterScreen() {
 
             {/* Footer */}
             <View
-              style={[authStyles.footerRow, { marginTop: 18 }]}
+              style={[
+                authStyles.footerRow,
+                { marginTop: 18 },
+              ]}
             >
               <Text style={authStyles.footerText}>
                 Sudah memiliki akun?
@@ -422,7 +435,7 @@ export default function RegisterScreen() {
 
               <TouchableOpacity
                 activeOpacity={0.6}
-                onPress={handleBackToLogin}
+                onPress={() => router.back()}
               >
                 <Text style={authStyles.footerLink}>
                   Masuk di sini
