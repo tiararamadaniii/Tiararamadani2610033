@@ -1,7 +1,9 @@
 
+import { getAuthSession, UserData } from "../../services/authService";
 import { homeStyles } from "../../styles/homeStyles";
 import { Ionicons } from "@expo/vector-icons";
-import { router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   Alert,
   ScrollView,
@@ -12,7 +14,15 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const { email } = useLocalSearchParams<{ email?: string }>();
+  const [user, setUser] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    getAuthSession().then((session) => {
+      if (session) {
+        setUser(session.user);
+      }
+    });
+  }, []);
 
   const handleMenuPress = (menuName: string, targetRoute?: string) => {
     if (targetRoute) {
@@ -32,21 +42,26 @@ export default function HomeScreen() {
         contentContainerStyle={homeStyles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Kartu Sambutan Sederhana */}
+        {/* Kartu Sambutan */}
         <View style={homeStyles.welcomeCard}>
           <View style={homeStyles.statusBadge}>
-            <Ionicons name="checkmark-circle" size={15} color="#059669" />
+            <Ionicons
+              name="checkmark-circle"
+              size={15}
+              color="#059669"
+            />
+
             <Text style={homeStyles.statusBadgeText}>
-              Berhasil Masuk (UI Mode)
+              Terhubung ke Server Laravel 13
             </Text>
           </View>
 
           <Text style={homeStyles.greetingTitle}>
-            Halo, Selamat Datang!
+            Halo, {user?.name || "Selamat Datang"}!
           </Text>
 
           <Text style={homeStyles.greetingEmail}>
-            {email || "mahasiswa@kampus.ac.id"}
+            {user?.email || "mahasiswa@kampus.ac.id"}
           </Text>
         </View>
 
@@ -70,7 +85,10 @@ export default function HomeScreen() {
               onPress={() => handleMenuPress("Produk", "/produk")}
             >
               <View
-                style={[homeStyles.menuIconWrapper, homeStyles.iconBgBlue]}
+                style={[
+                  homeStyles.menuIconWrapper,
+                  homeStyles.iconBgBlue,
+                ]}
               >
                 <Ionicons name="cube" size={26} color="#2563EB" />
               </View>
@@ -85,7 +103,10 @@ export default function HomeScreen() {
               onPress={() => handleMenuPress("Pelanggan")}
             >
               <View
-                style={[homeStyles.menuIconWrapper, homeStyles.iconBgGreen]}
+                style={[
+                  homeStyles.menuIconWrapper,
+                  homeStyles.iconBgGreen,
+                ]}
               >
                 <Ionicons name="people" size={26} color="#059669" />
               </View>
@@ -100,7 +121,10 @@ export default function HomeScreen() {
               onPress={() => handleMenuPress("Supplier")}
             >
               <View
-                style={[homeStyles.menuIconWrapper, homeStyles.iconBgAmber]}
+                style={[
+                  homeStyles.menuIconWrapper,
+                  homeStyles.iconBgAmber,
+                ]}
               >
                 <Ionicons name="business" size={26} color="#D97706" />
               </View>
@@ -115,7 +139,10 @@ export default function HomeScreen() {
               onPress={() => handleMenuPress("Barang Masuk")}
             >
               <View
-                style={[homeStyles.menuIconWrapper, homeStyles.iconBgTeal]}
+                style={[
+                  homeStyles.menuIconWrapper,
+                  homeStyles.iconBgTeal,
+                ]}
               >
                 <Ionicons name="download" size={26} color="#0D9488" />
               </View>
@@ -130,7 +157,10 @@ export default function HomeScreen() {
               onPress={() => handleMenuPress("Barang Keluar")}
             >
               <View
-                style={[homeStyles.menuIconWrapper, homeStyles.iconBgRose]}
+                style={[
+                  homeStyles.menuIconWrapper,
+                  homeStyles.iconBgRose,
+                ]}
               >
                 <Ionicons name="share" size={26} color="#E11D48" />
               </View>

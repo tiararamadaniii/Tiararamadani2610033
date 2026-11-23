@@ -83,3 +83,8 @@ package.json.backup
 .bundle/
 # Backup files
 *.backup
+
+# Environment secrets
+.env
+.env.*
+!.env.example
